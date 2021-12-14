@@ -1,6 +1,7 @@
 //Contains widgets
 import 'package:flutter/material.dart';
-import 'package:hello_world_2/screens/intro_screen.dart';
+import '/screens/bmi_screen.dart';
+import '/screens/intro_screen.dart';
 
 //Will not run without main
 void main() {
@@ -17,7 +18,13 @@ class GlobeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.blueGrey),
-      home: IntroScreen());
+      routes: {
+        '/': (context) => IntroScreen(),
+        '/bmi': (context) => BmiScreen(),
+      },
+      initialRoute: '/',
+      // home: IntroScreen());
+    );
   }
 }
 
