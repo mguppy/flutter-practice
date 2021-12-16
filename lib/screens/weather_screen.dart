@@ -4,10 +4,16 @@ import 'package:hello_world_2/data/weather.dart';
 import 'package:intl/intl.dart';
 import '../data/http_helper.dart';
 import '../data/weather.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 var date = DateTime.now();
 // DateTime date = new DateTime(now.year, now.month, now.day);
-String dateFormat = DateFormat('EEEE, d MMM, yyyy').format(date);
+String dateFormat = DateFormat('EEEE, MMM d, yyyy').format(date);
+
+const spinkit = SpinKitRotatingCircle(
+  color: Colors.blue,
+  size: 50.0,
+);
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -35,13 +41,24 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         hintText: 'Enter a city',
                         suffixIcon: IconButton(
                             icon: Icon(Icons.search), onPressed: getData)))),
-            weatherRow('Place: ', result.name),
+            // weatherRow('Place: ', result.name),
+            Stack(alignment: Alignment.center, children: <Widget>[
+              result.icon == '' ? spinkit : Image.network('https://openweathermap.org/img/wn/${result.icon}@2x.png'),
+              // Image.network('https://openweathermap.org/img/wn/${result.icon}@2x.png'),
+              // spinkit,
+              // FadeInImage(
+              //     placeholder: spinkit,
+              //     image:
+              //         'https://openweathermap.org/img/wn/${result.icon}@2x.png'),
+              Text(result.name,
+                  style: TextStyle(height: 5, fontSize: 35, color: Colors.blue))
+            ]),
             weatherRow('Description: ', result.description),
             weatherRow('Temperature: ', result.temperature.toStringAsFixed(2)),
             weatherRow('Perceived: ', result.perceived.toStringAsFixed(2)),
             weatherRow('Pressure: ', result.pressure.toString()),
             weatherRow('Humidity: ', result.humidity.toString()),
-            Image.network('https://openweathermap.org/img/wn/${result.icon}@2x.png')
+
             // weatherRow('Icon: ', fivedayresult.icon)
           ]),
         ));
