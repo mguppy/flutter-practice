@@ -7,7 +7,6 @@ import '../data/weather.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 var date = DateTime.now();
-// DateTime date = new DateTime(now.year, now.month, now.day);
 String dateFormat = DateFormat('EEEE, MMM d, yyyy').format(date);
 
 const spinkit = SpinKitRotatingCircle(
@@ -41,23 +40,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         hintText: 'Enter a city',
                         suffixIcon: IconButton(
                             icon: Icon(Icons.search), onPressed: getData)))),
-            // weatherRow('Place: ', result.name),
             Stack(alignment: Alignment.center, children: <Widget>[
               result.icon == '' ? spinkit : Image.network('https://openweathermap.org/img/wn/${result.icon}@2x.png'),
-              // Image.network('https://openweathermap.org/img/wn/${result.icon}@2x.png'),
-              // spinkit,
-              // FadeInImage(
-              //     placeholder: spinkit,
-              //     image:
-              //         'https://openweathermap.org/img/wn/${result.icon}@2x.png'),
-              Text(result.name,
-                  style: TextStyle(height: 5, fontSize: 35, color: Colors.blue))
+              Text(result.name, 
+                  style: TextStyle(height: 5, fontSize: 35, color: Colors.blue)),
             ]),
             weatherRow('Description: ', result.description),
-            weatherRow('Temperature: ', result.temperature.toStringAsFixed(2)),
-            weatherRow('Perceived: ', result.perceived.toStringAsFixed(2)),
+            weatherRow('Temperature: ', result.temperature.toStringAsFixed(2) + ' ℉'),
+            weatherRow('Feels Like: ', result.perceived.toStringAsFixed(2) + ' ℉'),
             weatherRow('Pressure: ', result.pressure.toString()),
-            weatherRow('Humidity: ', result.humidity.toString()),
+            weatherRow('Humidity: ', result.humidity.toString() + ' %'),
 
             // weatherRow('Icon: ', fivedayresult.icon)
           ]),
